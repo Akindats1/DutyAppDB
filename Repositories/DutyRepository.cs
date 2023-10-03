@@ -1,7 +1,10 @@
 ﻿using Dapper;
 using DutyAppDB.Models.Dtos.Duty;
+using DutyAppDB.Models.Entities;
 using DutyAppDB.Repositories.Contracts;
+using DutyAppDB.Shared;
 using System.Data;
+using System.Xml.Linq;
 
 namespace DutyAppDB.Repositories;
 
@@ -28,6 +31,15 @@ public class DutyRepository : IDutyRepository
         }
     }
 
+    public async Task<bool> DeleteDuty(int id)
+    {
+        using(_dbConnection) 
+        { 
+            _dbConnection.Open();
+            var affectedrows = await _dbConnection.ExecuteAsync("DELETE FROM duty WHERE ID = @Id", new { Id = id });
+            return affectedrows > 0;
+        }
+    }
 
     public async Task<List<ReadOnlyDutyDto>> GetAllDuty()
     {
@@ -40,6 +52,30 @@ public class DutyRepository : IDutyRepository
             var result = await _dbConnection.QueryAsync<ReadOnlyDutyDto>(sql);
 
             return result.ToList();
+        }
+    }
+
+    public async Task<ViewDutyDetailDto> GetDuty(int id)
+    {
+        using (_dbConnection)
+        {
+            _dbConnection.Open();
+
+            return await _dbConnection.QuerySingleAsync<ViewDutyDetailDto>("SELECT * FROM Duty WHERE Id = @Id", new { Id = id });
+        }
+    }
+
+    public async Task<int> UpdateDuty(UpdateDutyDto request)
+    {
+        using (_dbConnection)
+        {
+            _dbConnection.Open();
+
+            var sql = "UPDATE Duty SET NAME = @Name, DESCRIPTION = @Description WHERE Id = @Id";
+
+            var rowsAffected = await _dbConnection.ExecuteAsync(sql, request);
+
+            return rowsAffected;
         }
     }
 }
