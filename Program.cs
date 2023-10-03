@@ -30,11 +30,14 @@ class Program
 
         services.AddScoped<IDutyRepository, DutyRepository>();
         services.AddScoped<IDutyService, DutyService>();
+        services.AddScoped<IStudentRepository, StudentRepository>();
+        services.AddScoped<IStudentService, StudentService>();
 
         var serviceProvider = services.BuildServiceProvider();
 
         var dutyService = serviceProvider.GetRequiredService<IDutyService>();
+        var studentService = serviceProvider.GetRequiredService<IStudentService>();
 
-        Menu.MainMenu(dutyService);
+        Menu.MainMenu(dutyService, studentService);
     }
 }
