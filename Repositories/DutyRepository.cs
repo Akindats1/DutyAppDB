@@ -62,7 +62,7 @@ public class DutyRepository : IDutyRepository
 
         }
     }
-
+     
     public async Task<int> UpdateDuty(UpdateDutyDto request)
     {
         using (_dbConnection)
