@@ -2,6 +2,9 @@ namespace DutyAppDB.Models.Entities;
 
 public class DutyAssignment : BaseEntity
 {
-    public string DutyId { get; set; } = default!;
-    public string StudentId { get; set; } = default!;
+    public int DutyId { get; set; } = default!;
+    public int StudentId { get; set; } = default!;
+    public string StudentCode { get; set; } = null!;
+    public string StudentName { get; set; } = null!;
+    public string DutyName { get; set; } = null!;
 }

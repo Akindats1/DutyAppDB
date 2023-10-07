@@ -25,11 +25,15 @@ public class DutyService : IDutyService
             Console.Write("Enter the Duty Description: ");
             string? description = Console.ReadLine();
 
+            
+
             var duty = new CreateDutyDto
             {
                 Name = dutyName,
-                Description = description
+                Description = description,
+                CreatedAt = DateTime.Now,
             };
+
 
             int rowsAffected = await _dutyRepository.CreateDuty(duty);
 

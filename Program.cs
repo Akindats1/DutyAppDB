@@ -32,12 +32,16 @@ class Program
         services.AddScoped<IDutyService, DutyService>();
         services.AddScoped<IStudentRepository, StudentRepository>();
         services.AddScoped<IStudentService, StudentService>();
+        services.AddScoped<IDutyAssignmentRepository, DutyAssignmentRepository>();
+        services.AddScoped<IDutyAssignmentService, DutyAssignmentService>();
+
 
         var serviceProvider = services.BuildServiceProvider();
 
         var dutyService = serviceProvider.GetRequiredService<IDutyService>();
         var studentService = serviceProvider.GetRequiredService<IStudentService>();
+        var dutyAssignmentService = serviceProvider.GetRequiredService<IDutyAssignmentService>();
 
-        Menu.MainMenu(dutyService, studentService);
+        Menu.MainMenu(dutyService, studentService, dutyAssignmentService);
     }
 }

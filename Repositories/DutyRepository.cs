@@ -1,10 +1,7 @@
 ﻿using Dapper;
 using DutyAppDB.Models.Dtos.Duty;
-using DutyAppDB.Models.Entities;
 using DutyAppDB.Repositories.Contracts;
-using DutyAppDB.Shared;
 using System.Data;
-using System.Xml.Linq;
 
 namespace DutyAppDB.Repositories;
 
@@ -62,6 +59,7 @@ public class DutyRepository : IDutyRepository
             _dbConnection.Open();
 
             return await _dbConnection.QuerySingleAsync<ViewDutyDetailDto>("SELECT * FROM Duty WHERE Id = @Id", new { Id = id });
+
         }
     }
 
